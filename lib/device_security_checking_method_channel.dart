@@ -22,7 +22,6 @@ class MethodChannelDeviceSecurityChecking
   FutureOr isDevModeOn() async {
     final value = await methodChannel.invokeMethod('isDevModeOn');
     return value;
-
   }
 
   @override
