@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  device_security_checking
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

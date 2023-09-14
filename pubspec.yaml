@@ -1,10 +1,10 @@
 name: device_security_checking
 description: Checking on device security level
-version: 0.0.1
+version: 0.0.4
 homepage:
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=2.19.6 <4.0.0'
   flutter: '>=3.3.0'
 
 dependencies:
@@ -41,15 +41,6 @@ flutter:
         pluginClass: DeviceSecurityCheckingPlugin
       ios:
         pluginClass: DeviceSecurityCheckingPlugin
-      linux:
-        pluginClass: DeviceSecurityCheckingPlugin
-      macos:
-        pluginClass: DeviceSecurityCheckingPlugin
-      windows:
-        pluginClass: DeviceSecurityCheckingPluginCApi
-      web:
-        pluginClass: DeviceSecurityCheckingWeb
-        fileName: device_security_checking_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

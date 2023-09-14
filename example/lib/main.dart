@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:device_security_checking/device_security_checking.dart';
@@ -25,82 +24,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    isRealDevice();
-    isDevMode();
-    isRootedDevice();
-    isTrustedDevice();
+    getValues();
     super.initState();
   }
 
-  Future<void> isRealDevice() async {
-    var result;
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      result = await _deviceSecurityCheckingPlugin.emulatorChecking();
-      setState(() {
-        isEmulator = result;
-      });
-    } catch (e) {
-      alert(e.toString());
+  Future<void> getValues() async {
+    var a = await _deviceSecurityCheckingPlugin.trustedDeviceChecking();
+    var b = await _deviceSecurityCheckingPlugin.emulatorChecking();
+    var d = await _deviceSecurityCheckingPlugin.rootedDeviceChecking();
+    var c;
+    if (Platform.isAndroid) {
+      c = await _deviceSecurityCheckingPlugin.developerModeChecking();
     }
     setState(() {
-      isLoading = false;
-    });
-  }
-
-  Future<void> isDevMode() async {
-    var result;
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      result = await _deviceSecurityCheckingPlugin.developerModeChecking();
-      setState(() {
-        isDevModeOn = result;
-      });
-    } catch (e) {
-      alert(e.toString());
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  Future<void> isRootedDevice() async {
-    var result;
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      result = await _deviceSecurityCheckingPlugin.rootedDeviceChecking();
-      setState(() {
-        isRooted = result;
-      });
-    } catch (e) {
-      alert(e.toString());
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  Future<void> isTrustedDevice() async {
-    var result;
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      result = await _deviceSecurityCheckingPlugin.trustedDeviceChecking();
-      setState(() {
-        isTrusted = result;
-      });
-    } catch (e) {
-      alert(e.toString());
-    }
-    setState(() {
-      isLoading = false;
+      isTrusted = a;
+      isEmulator = b;
+      isRooted = d;
+      if (Platform.isAndroid) {
+        isDevModeOn = c;
+      }
     });
   }
 
@@ -118,20 +60,20 @@ class _MyAppState extends State<MyApp> {
               Text('Emulator Device : $isEmulator'),
               const SizedBox(height: 20),
               if (Platform.isAndroid) Text('Dev mode on : $isDevModeOn'),
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text((Platform.isAndroid)
-                      ? 'Rooted Device :'
-                      : 'Jail Broken Device :'),
-                  Text(' $isRooted'),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text((Platform.isAndroid)
+                        ? 'Rooted Device :'
+                        : 'Jail Broken Device :'),
+                    Text(' $isRooted'),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
               Text('Trusted Device : $isTrusted'),
-              const SizedBox(height: 20),
             ],
           ),
         ),

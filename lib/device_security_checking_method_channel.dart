@@ -13,25 +13,25 @@ class MethodChannelDeviceSecurityChecking
   final methodChannel = const MethodChannel('device_security_checking');
 
   @override
-  FutureOr<bool> isEmulator() async {
+  FutureOr isEmulator() async {
     final value = await methodChannel.invokeMethod('isEmulator');
     return value;
   }
 
   @override
-  FutureOr<bool> isDevModeOn() async {
+  FutureOr isDevModeOn() async {
     final value = await methodChannel.invokeMethod('isDevModeOn');
     return value;
   }
 
   @override
-  FutureOr<bool> isRootedDevice() async {
+  Future isRootedDevice() async {
     final value = await methodChannel.invokeMethod('isRootedDevice');
     return value;
   }
 
   @override
-  FutureOr<bool> isTrustedDevice() async {
+  FutureOr isTrustedDevice() async {
     final value = await methodChannel.invokeMethod('isTrustedDevice');
     return value;
   }
